@@ -11,7 +11,7 @@ def get_data(data):
     os_code_list = []
     os_type_list = []
     for a in range(1, 4):
-        with open('info_' + str(a) + '.txt') as file:
+        with open(f'info_{a}.txt') as file:
             i = 0
             for row in file:
                 for parameter in main_data:
@@ -34,11 +34,11 @@ def write_to_csv():
     dataset = list(get_data(parameter_list))
     parameters = dataset.pop(0)
     re_dataset = list(map(list, zip(*dataset)))
-    print(parameters)
-    with open('task_1.csv', 'w') as file:
+    with open('task_1.csv', 'w', encoding='utf-8') as file:
         file_writer = csv.writer(file, delimiter=',')
         file_writer.writerow(parameters)
         for line in re_dataset:
             file_writer.writerow(line)
+
 
 write_to_csv()
