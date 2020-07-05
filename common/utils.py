@@ -1,14 +1,17 @@
-import json
+"""Утилиты"""
 
-from Lesson_4.common.variables import ENCODING, MAX_PACKAGE_LENGTH
+import json
+from Lesson_6.common.variables import MAX_PACKAGE_LENGTH, ENCODING
 
 
 def get_message(client):
-    """
-    Утилита приёма и декодирования сообщения.
+    '''
+    Утилита приёма и декодирования сообщения
+    принимает байты выдаёт словарь, если приняточто-то другое отдаёт ошибку значения
+    :param client:
+    :return:
+    '''
 
-    Принимает байты выдаёт словарь, если принято что-то другое отдаёт ошибку значения.
-    """
     encoded_response = client.recv(MAX_PACKAGE_LENGTH)
     if isinstance(encoded_response, bytes):
         json_response = encoded_response.decode(ENCODING)
@@ -20,11 +23,14 @@ def get_message(client):
 
 
 def send_message(sock, message):
-    """
-    Утилита кодирования и отправки сообщения.
+    '''
+    Утилита кодирования и отправки сообщения
+    принимает словарь и отправляет его
+    :param sock:
+    :param message:
+    :return:
+    '''
 
-    Принимает словарь и отправляет его.
-    """
     js_message = json.dumps(message)
     encoded_message = js_message.encode(ENCODING)
     sock.send(encoded_message)
